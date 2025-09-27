@@ -21,16 +21,32 @@ function Contact() {
       </h2>
       <form id="contactForm" onSubmit={handleSubmit}>
         <div className="inputbox no-cursor-effect">
-          <input type="text" placeholder="Full Name" required />
-          <input type="email" placeholder="Email Address" required />
+          <input name="fullName" type="text" placeholder="Full Name" required />
+          <input
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            required
+          />
         </div>
         <div className="inputbox no-cursor-effect">
-          <input type="number" placeholder="Mobile Number" required />
-          <input type="text" placeholder="Email Subject" required />
+          <input
+            name="mobile"
+            type="number"
+            placeholder="Mobile Number"
+            required
+          />
+          <input
+            name="subject"
+            type="text"
+            placeholder="Email Subject"
+            required
+          />
         </div>
         <textarea
           cols={30}
           rows={10}
+          name="message"
           placeholder="Your Message"
           required
           className="no-cursor-effect"
