@@ -694,7 +694,9 @@ span {
     overflow-x: auto; /* allow scroll if too many tabs */
     gap: 1rem;
   }
-
+  .service-sections {
+    padding: 0 1rem;
+  }
   .services-tabs-vertical .tab-btn {
     font-size: 1.4rem;
     padding: 0.8rem 1.2rem;
@@ -704,7 +706,14 @@ span {
   }
 
   .service-container {
-    justify-content: center;
+    flex-direction: column; /* stack cards vertically */
+    flex-wrap: nowrap; /* don’t wrap horizontally */
+    gap: 1.5rem; /* spacing between cards */
+    width: 100%; /* full width */
+  }
+  .services-box {
+    flex: 1 1 100%; /* take full width */
+    max-width: 100%; /* prevent overflowing */
   }
 }
 
