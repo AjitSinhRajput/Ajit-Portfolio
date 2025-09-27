@@ -212,7 +212,7 @@ span {
   gap: 2rem;
 
   /* New background settings */
-  background: url("images/ajit_latest_bg.jpeg") center/cover no-repeat;
+  background: url("/images/ajit_latest_bg.jpeg") center/cover no-repeat;
   position: relative;
   color: #fff;
   min-height: 100vh;
