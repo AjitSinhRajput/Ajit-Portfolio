@@ -61,7 +61,7 @@ const Home: React.FC = () => {
       </div>
 
       <div className="home-img-hex no-cursor-effect">
-        <img src="images/ajit.jpeg" alt="Ajit Sinh Rajput" />
+        <img src="/Ajit-Portfolio/images/ajit.jpeg" alt="Ajit Sinh Rajput" />
       </div>
     </section>
   );

@@ -14,47 +14,47 @@ const Services: React.FC = () => {
       {
         title: "Pretrained Models",
         description: "Worked with Mistral, LLaMA, LLaVA, Ollama.",
-        icon: "images/ollama.png",
+        icon: "/Ajit-Portfolio/images/ollama.png",
       },
       {
         title: "AI Integrations",
         description: "OpenAI, Hugging Face, Azure AI integrations.",
-        icon: "images/ai-integration.png",
+        icon: "/Ajit-Portfolio/images/ai-integration.png",
       },
       {
         title: "TensorFlow",
         description: "Deep learning & ML workflows with TensorFlow.",
-        icon: "images/TensorFlow.svg",
+        icon: "/Ajit-Portfolio/images/TensorFlow.svg",
       },
       {
         title: "OCR",
         description: "Document recognition with PaddleOCR.",
-        icon: "images/ocr.png",
+        icon: "/Ajit-Portfolio/images/ocr.png",
       },
       {
         title: "AI Image Processing",
         description: "Custom AI/ML image workflows.",
-        icon: "images/ai-image.png",
+        icon: "/Ajit-Portfolio/images/ai-image.png",
       },
       {
         title: "Roboflow",
         description: "Annotation & dataset export (COCO format).",
-        icon: "images/roboflow.jpeg",
+        icon: "/Ajit-Portfolio/images/roboflow.jpeg",
       },
       {
         title: "Zapier",
         description: "AI-driven automation & workflow integrations.",
-        icon: "images/zapier.svg",
+        icon: "/Ajit-Portfolio/images/zapier.svg",
       },
       {
         title: "n8n",
         description: "Open-source automation with AI connectors.",
-        icon: "images/n8n.svg",
+        icon: "/Ajit-Portfolio/images/n8n.svg",
       },
       {
         title: "AI Builder",
         description: "Microsoft Power Platform AI Builder.",
-        icon: "images/ai-builder.png",
+        icon: "/Ajit-Portfolio/images/ai-builder.png",
       },
     ],
     Languages: [
@@ -87,22 +87,22 @@ const Services: React.FC = () => {
       {
         title: "C",
         description: "System-level programming and data structures.",
-        icon: "images/c.png",
+        icon: "/Ajit-Portfolio/images/c.png",
       },
       {
         title: "SQL",
         description: "Relational database queries & optimization.",
-        icon: "images/sql.png",
+        icon: "/Ajit-Portfolio/images/sql.png",
       },
       {
         title: "PowerFx",
         description: "Power Apps formula language.",
-        icon: "images/power-platform.png",
+        icon: "/Ajit-Portfolio/images/power-platform.png",
       },
       {
         title: "DAX",
         description: "Data Analysis Expressions for BI solutions.",
-        icon: "images/power-bi.png",
+        icon: "/Ajit-Portfolio/images/power-bi.png",
       },
     ],
     Frontend: [
@@ -114,7 +114,7 @@ const Services: React.FC = () => {
       {
         title: "Next.js",
         description: "SSR + optimized apps with Next.js.",
-        icon: "images/nextjs.png",
+        icon: "/Ajit-Portfolio/images/nextjs.png",
       },
       {
         title: "React Native",
@@ -124,7 +124,7 @@ const Services: React.FC = () => {
       {
         title: "Vite",
         description: "Lightning-fast frontend build tooling.",
-        icon: "images/vite.svg",
+        icon: "/Ajit-Portfolio/images/vite.svg",
       },
       {
         title: "Figma",
@@ -136,7 +136,7 @@ const Services: React.FC = () => {
       {
         title: "FastAPI",
         description: "High-performance APIs with Python.",
-        icon: "images/FastAPI.svg",
+        icon: "/Ajit-Portfolio/images/FastAPI.svg",
       },
       {
         title: "Flask",
@@ -151,105 +151,105 @@ const Services: React.FC = () => {
       {
         title: ".NET",
         description: "Enterprise-grade backend solutions.",
-        icon: "images/dotnet.png",
+        icon: "/Ajit-Portfolio/images/dotnet.png",
       },
       {
         title: "REST APIs",
         description: "API development and integration.",
-        icon: "images/api.png",
+        icon: "/Ajit-Portfolio/images/api.png",
       },
     ],
     Databases: [
       {
         title: "PostgreSQL",
         description: "Advanced relational database.",
-        icon: "images/postgresql.svg",
+        icon: "/Ajit-Portfolio/images/postgresql.svg",
       },
       {
         title: "MySQL",
         description: "Relational database expertise.",
-        icon: "images/mysql-database.png",
+        icon: "/Ajit-Portfolio/images/mysql-database.png",
       },
       {
         title: "SQLite",
         description: "Lightweight DB for apps.",
-        icon: "images/sqlite-wtbg.svg",
+        icon: "/Ajit-Portfolio/images/sqlite-wtbg.svg",
       },
       {
         title: "Firebase",
         description: "Realtime cloud DB & auth.",
-        icon: "images/firebase.png",
+        icon: "/Ajit-Portfolio/images/firebase.png",
       },
       {
         title: "MongoDB",
         description: "NoSQL document database.",
-        icon: "images/mongodb.svg",
+        icon: "/Ajit-Portfolio/images/mongodb.svg",
       },
     ],
     DevOps: [
       {
         title: "Docker",
         description: "Containerization & deployment.",
-        icon: "images/docker.png",
+        icon: "/Ajit-Portfolio/images/docker.png",
       },
       {
         title: "Nginx",
         description: "Web server & reverse proxy setup.",
-        icon: "images/nginx.svg",
+        icon: "/Ajit-Portfolio/images/nginx.svg",
       },
       {
         title: "Git / GitHub / Azure Repos",
         description: "Version control & CI/CD pipelines.",
-        icon: "images/code-versioncontrol.svg",
+        icon: "/Ajit-Portfolio/images/code-versioncontrol.svg",
       },
       {
         title: "Azure DevOps",
         description: "Cloud-based DevOps practices.",
-        icon: "images/azure-devops.png",
+        icon: "/Ajit-Portfolio/images/azure-devops.png",
       },
     ],
     Microsoft: [
       {
         title: "SharePoint",
         description: "Basic knowledge of SharePoint functionalities.",
-        icon: "images/sharepoint.svg",
+        icon: "/Ajit-Portfolio/images/sharepoint.svg",
       },
       {
         title: "Power Platform",
         description: "Build low-code apps with Power Apps & Automate.",
-        icon: "images/power-platform.png",
+        icon: "/Ajit-Portfolio/images/power-platform.png",
       },
       {
         title: "Dynamics 365",
         description: "Customize Dynamics 365 for workflows.",
-        icon: "images/dynamics365.svg",
+        icon: "/Ajit-Portfolio/images/dynamics365.svg",
       },
       {
         title: "Azure (Basic)",
         description: "Introductory cloud knowledge with Azure.",
-        icon: "images/azure.png",
+        icon: "/Ajit-Portfolio/images/azure.png",
       },
     ],
     Concepts: [
       {
         title: "OOP & DSA",
         description: "Object-oriented programming & algorithms.",
-        icon: "images/oops.png",
+        icon: "/Ajit-Portfolio/images/oops.png",
       },
       {
         title: "SDLC & Agile",
         description: "Software Development Lifecycle & Agile workflow.",
-        icon: "images/scrum.png",
+        icon: "/Ajit-Portfolio/images/scrum.png",
       },
       {
         title: "CI/CD",
         description: "Continuous Integration & Deployment.",
-        icon: "images/ci-cd.png",
+        icon: "/Ajit-Portfolio/images/ci-cd.png",
       },
       {
         title: "Secure Data Storage",
         description: "Authentication & secure storage practices.",
-        icon: "images/security.png",
+        icon: "/Ajit-Portfolio/images/security.png",
       },
     ],
   };
