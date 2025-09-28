@@ -259,18 +259,23 @@ const Services: React.FC = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        let maxRatio = 0;
+        let mostVisibleCat: string | null = null;
+
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const cat = entry.target.getAttribute("data-category");
-            if (cat) {
-              setActiveTab(cat);
-            }
+          if (entry.intersectionRatio > maxRatio) {
+            maxRatio = entry.intersectionRatio;
+            mostVisibleCat = entry.target.getAttribute("data-category");
           }
         });
+
+        if (mostVisibleCat) {
+          setActiveTab(mostVisibleCat);
+        }
       },
       {
-        threshold: 0.4, // at least 40% visible to switch
-        rootMargin: "-10% 0px -50% 0px", // tweak for smoother highlight
+        threshold: Array.from({ length: 11 }, (_, i) => i / 10), // 0.0 to 1.0
+        rootMargin: "-10% 0px -40% 0px",
       }
     );
 
