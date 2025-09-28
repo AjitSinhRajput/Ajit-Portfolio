@@ -535,6 +535,9 @@ span {
 }
 
 @media (max-width: 991px) {
+  .service-sections {
+    margin-left: 0; /* remove left margin */
+  }
   .header {
     padding: 2rem 3%;
   }
