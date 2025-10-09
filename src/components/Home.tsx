@@ -55,7 +55,11 @@ const Home: React.FC = () => {
             <i className="bx bxl-github"></i>
           </a>
         </div>
-        <a href="Ajit-Resume.pdf" className="btn no-cursor-effect" download>
+        <a
+          href="/Ajit-Portfolio/AjitResume.pdf"
+          download="Ajit_Sinh_Rajput_Resume.pdf"
+          className="btn no-cursor-effect"
+        >
           Download CV
         </a>
       </div>
