@@ -56,7 +56,7 @@ const Home: React.FC = () => {
           </a>
         </div>
         <a
-          href="/Ajit-Portfolio/AjitResume.pdf"
+          href="AjitResume.pdf"
           download="Ajit_Sinh_Rajput_Resume.pdf"
           className="btn no-cursor-effect"
         >
