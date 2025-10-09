@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
+import { Switch } from "antd";
+import { SunFilled, MoonFilled } from "@ant-design/icons";
 
 const Header: React.FC = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isSticky, setIsSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +34,13 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("light-theme", theme === "light");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(theme === "dark" ? "light" : "dark");
+
   const toggleMenu = () => setMenuOpen((prev) => !prev);
   const closeMenu = () => setMenuOpen(false);
 
@@ -39,14 +49,14 @@ const Header: React.FC = () => {
       <a href="#" className="logo no-cursor-effect">
         Portfolio
       </a>
-
-      {/* Menu icon */}
-      <i
-        className={`bx bx-menu no-cursor-effect ${menuOpen ? "bx-x" : ""}`}
-        id="menu-icon"
-        onClick={toggleMenu}
-      ></i>
-
+      <div className="header-right">
+        {/* Menu icon */}
+        <i
+          className={`bx bx-menu no-cursor-effect ${menuOpen ? "bx-x" : ""}`}
+          id="menu-icon"
+          onClick={toggleMenu}
+        ></i>
+      </div>
       <nav className={`navbar no-cursor-effect ${menuOpen ? "active" : ""}`}>
         <a
           href="#home"
@@ -83,6 +93,14 @@ const Header: React.FC = () => {
         >
           Contact
         </a>
+        <div className="theme-switch-container">
+          <Switch
+            checked={theme === "light"}
+            onChange={toggleTheme}
+            checkedChildren={<SunFilled />}
+            unCheckedChildren={<MoonFilled />}
+          />
+        </div>
       </nav>
     </header>
   );
