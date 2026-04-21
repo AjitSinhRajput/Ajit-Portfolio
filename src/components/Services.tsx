@@ -1,286 +1,269 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { assetPath } from "../utils/assets";
 
-type Service = {
+type Skill = {
   title: string;
   description: string;
   icon?: string;
-  alt?: string;
   boxicon?: string;
 };
 
+const categories: Record<string, Skill[]> = {
+  Languages: [
+    {
+      title: "JavaScript + TypeScript",
+      description: "Production React, Next.js, Vite, typed UI workflows.",
+      boxicon: "bxl-typescript",
+    },
+    {
+      title: "Python",
+      description: "FastAPI, Flask, automation, OCR, AI/ML integrations.",
+      boxicon: "bxl-python",
+    },
+    {
+      title: "SQL",
+      description: "Relational schema design, reporting, joins, data access.",
+      icon: "images/sql.png",
+    },
+    {
+      title: "Java, PHP, C",
+      description: "Core programming, OOP, data structures, backend basics.",
+      icon: "images/c.png",
+    },
+  ],
+  Frontend: [
+    {
+      title: "React",
+      description: "Component-driven SaaS UI, routing, forms, state flows.",
+      boxicon: "bxl-react",
+    },
+    {
+      title: "Next.js",
+      description: "Full-stack frontend, SSR patterns, API routes, product UI.",
+      icon: "images/nextjs.png",
+    },
+    {
+      title: "React Native",
+      description: "Mobile application foundations from postgraduate training.",
+      boxicon: "bxl-react",
+    },
+    {
+      title: "Redux Toolkit + Vite",
+      description: "Modern state management and fast frontend tooling.",
+      icon: "images/vite.svg",
+    },
+  ],
+  "Backend + APIs": [
+    {
+      title: "FastAPI",
+      description: "Secure REST APIs, validation, service layers, backend docs.",
+      icon: "images/FastAPI.svg",
+    },
+    {
+      title: "Node.js + Express",
+      description: "Backend services, integrations, and transactional workflows.",
+      boxicon: "bxl-nodejs",
+    },
+    {
+      title: "REST APIs",
+      description: "API design, third-party integrations, connectors, schemas.",
+      icon: "images/api.png",
+    },
+    {
+      title: "Flask",
+      description: "Python web apps including face-recognition attendance work.",
+      boxicon: "bxl-flask",
+    },
+  ],
+  Databases: [
+    {
+      title: "PostgreSQL",
+      description: "Healthcare SaaS, CRM data, reporting, relational modeling.",
+      icon: "images/postgresql.svg",
+    },
+    {
+      title: "MySQL",
+      description: "Relational database development and query workflows.",
+      icon: "images/mysql-database.png",
+    },
+    {
+      title: "SQLite",
+      description: "Lightweight app data, prototypes, local persistence.",
+      icon: "images/sqlite-wtbg.svg",
+    },
+    {
+      title: "Firebase",
+      description: "Cloud data and app backend foundations.",
+      icon: "images/firebase.png",
+    },
+  ],
+  "Microsoft Ecosystem": [
+    {
+      title: "Power Apps",
+      description: "Canvas apps connected to SharePoint and business workflows.",
+      icon: "images/power-platform.png",
+    },
+    {
+      title: "Power Automate",
+      description: "Approval flows, automation, multi-system connectors.",
+      icon: "images/power-platform.png",
+    },
+    {
+      title: "SharePoint Online",
+      description: "Lists, forms, permission models, structured data capture.",
+      icon: "images/sharepoint.svg",
+    },
+    {
+      title: "Dynamics 365 Sales",
+      description: "Leads, Opportunities, security roles, CRM customization.",
+      icon: "images/dynamics365.svg",
+    },
+    {
+      title: "AI Builder OCR",
+      description: "Expense document recognition and approval automation.",
+      icon: "images/ai-builder.png",
+    },
+    {
+      title: "Custom Connectors",
+      description: "Power Platform integrations with third-party systems.",
+      icon: "images/api.svg",
+    },
+  ],
+  "Auth + Security": [
+    {
+      title: "RBAC",
+      description: "Role-based access across frontend and backend services.",
+      icon: "images/security.png",
+    },
+    {
+      title: "OAuth",
+      description: "Google OAuth and Microsoft OAuth authentication flows.",
+      icon: "images/security.png",
+    },
+    {
+      title: "JWT",
+      description: "Secure token handling for protected application workflows.",
+      icon: "images/security.png",
+    },
+    {
+      title: "Permissions",
+      description: "SharePoint, Dynamics, and app-level access control models.",
+      icon: "images/security.png",
+    },
+  ],
+  "Cloud + DevOps": [
+    {
+      title: "AWS",
+      description: "EC2, S3, RDS, Bedrock, Transcribe, dev/prod operations.",
+      boxicon: "bxl-aws",
+    },
+    {
+      title: "Azure",
+      description: "Basic Azure knowledge and Microsoft cloud ecosystem work.",
+      icon: "images/azure.png",
+    },
+    {
+      title: "Docker",
+      description: "Containerized application delivery and CI/CD workflows.",
+      icon: "images/docker.png",
+    },
+    {
+      title: "GitHub Actions + Nginx",
+      description: "Pipelines, deployment automation, reverse proxy setup.",
+      icon: "images/ci-cd.png",
+    },
+  ],
+  "AI + ML": [
+    {
+      title: "LLM Integration",
+      description: "AWS Bedrock, Hugging Face, Mistral, LLaMA, LLaVA.",
+      icon: "images/ai-integration.png",
+    },
+    {
+      title: "AWS Transcribe",
+      description: "Secure audio processing for healthcare workflows.",
+      boxicon: "bx-microphone",
+    },
+    {
+      title: "OCR",
+      description: "PaddleOCR and AI Builder OCR document recognition.",
+      icon: "images/ocr.png",
+    },
+    {
+      title: "Image Processing",
+      description: "Enhancement, background removal, OCR extraction, denoising.",
+      icon: "images/ai-image.png",
+    },
+  ],
+  "Payments + Analytics": [
+    {
+      title: "Stripe",
+      description: "Subscriptions, coupons, 30-day trials, SaaS onboarding.",
+      boxicon: "bxl-stripe",
+    },
+    {
+      title: "Razorpay",
+      description: "Transactional billing and credit-based payment workflows.",
+      boxicon: "bx-credit-card",
+    },
+    {
+      title: "GA4 + GTM",
+      description: "Journey tracking, conversion events, product analytics.",
+      boxicon: "bx-line-chart",
+    },
+    {
+      title: "LinkedIn Insight Tag",
+      description: "Campaign and funnel tracking for conversion visibility.",
+      boxicon: "bxl-linkedin",
+    },
+  ],
+  "Tools + Practices": [
+    {
+      title: "Git + Version Control",
+      description: "GitHub, Azure Repos, branch workflows, production delivery.",
+      icon: "images/code-versioncontrol.svg",
+    },
+    {
+      title: "Agile + SDLC",
+      description: "Jira, Confluence, sprint delivery, maintainable execution.",
+      icon: "images/scrum.png",
+    },
+    {
+      title: "Figma",
+      description: "UI/UX design handoff, product thinking, interface planning.",
+      boxicon: "bxl-figma",
+    },
+    {
+      title: "OOP + DSA",
+      description: "Software fundamentals, maintainability, problem solving.",
+      icon: "images/oops.png",
+    },
+  ],
+};
+
 const Services: React.FC = () => {
-  const categories: { [key: string]: Service[] } = {
-    "AI / ML": [
-      {
-        title: "Pretrained Models",
-        description: "Worked with Mistral, LLaMA, LLaVA, Ollama.",
-        icon: "/Ajit-Portfolio/images/ollama.png",
-      },
-      {
-        title: "AI Integrations",
-        description: "OpenAI, Hugging Face, Azure AI integrations.",
-        icon: "/Ajit-Portfolio/images/ai-integration.png",
-      },
-      {
-        title: "TensorFlow",
-        description: "Deep learning & ML workflows with TensorFlow.",
-        icon: "/Ajit-Portfolio/images/TensorFlow.svg",
-      },
-      {
-        title: "OCR",
-        description: "Document recognition with PaddleOCR.",
-        icon: "/Ajit-Portfolio/images/ocr.png",
-      },
-      {
-        title: "AI Image Processing",
-        description: "Custom AI/ML image workflows.",
-        icon: "/Ajit-Portfolio/images/ai-image.png",
-      },
-      {
-        title: "Roboflow",
-        description: "Annotation & dataset export (COCO format).",
-        icon: "/Ajit-Portfolio/images/roboflow.jpeg",
-      },
-      {
-        title: "Zapier",
-        description: "AI-driven automation & workflow integrations.",
-        icon: "/Ajit-Portfolio/images/zapier.svg",
-      },
-      {
-        title: "n8n",
-        description: "Open-source automation with AI connectors.",
-        icon: "/Ajit-Portfolio/images/n8n.svg",
-      },
-      {
-        title: "AI Builder",
-        description: "Microsoft Power Platform AI Builder.",
-        icon: "/Ajit-Portfolio/images/ai-builder.png",
-      },
-    ],
-    Languages: [
-      {
-        title: "JavaScript",
-        description: "Frontend and backend development.",
-        boxicon: "bxl-javascript",
-      },
-      {
-        title: "TypeScript",
-        description: "Typed superset of JavaScript for scalable apps.",
-        // icon: "images/typescript.svg",
-        boxicon: "bxl-typescript",
-      },
-      {
-        title: "Python",
-        description: "FastAPI, Flask, and ML integrations.",
-        boxicon: "bxl-python",
-      },
-      {
-        title: "Java",
-        description: "Enterprise and backend development.",
-        boxicon: "bxl-java",
-      },
-      {
-        title: "PHP",
-        description: "Web apps & backend scripting.",
-        boxicon: "bxl-php",
-      },
-      {
-        title: "C",
-        description: "System-level programming and data structures.",
-        icon: "/Ajit-Portfolio/images/c.png",
-      },
-      {
-        title: "SQL",
-        description: "Relational database queries & optimization.",
-        icon: "/Ajit-Portfolio/images/sql.png",
-      },
-      {
-        title: "PowerFx",
-        description: "Power Apps formula language.",
-        icon: "/Ajit-Portfolio/images/power-platform.png",
-      },
-      {
-        title: "DAX",
-        description: "Data Analysis Expressions for BI solutions.",
-        icon: "/Ajit-Portfolio/images/power-bi.png",
-      },
-    ],
-    Frontend: [
-      {
-        title: "React.js",
-        description: "Modern frontend apps with React.",
-        boxicon: "bxl-react",
-      },
-      {
-        title: "Next.js",
-        description: "SSR + optimized apps with Next.js.",
-        icon: "/Ajit-Portfolio/images/nextjs.png",
-      },
-      {
-        title: "React Native",
-        description: "Cross-platform mobile apps.",
-        boxicon: "bxl-react",
-      },
-      {
-        title: "Vite",
-        description: "Lightning-fast frontend build tooling.",
-        icon: "/Ajit-Portfolio/images/vite.svg",
-      },
-      {
-        title: "Figma",
-        description: "UI/UX design prototyping.",
-        boxicon: "bxl-figma",
-      },
-    ],
-    Backend: [
-      {
-        title: "FastAPI",
-        description: "High-performance APIs with Python.",
-        icon: "/Ajit-Portfolio/images/FastAPI.svg",
-      },
-      {
-        title: "Flask",
-        description: "Lightweight backend web services.",
-        boxicon: "bxl-flask",
-      },
-      {
-        title: "Node.js / Express",
-        description: "Scalable backend APIs.",
-        boxicon: "bxl-nodejs",
-      },
-      {
-        title: ".NET",
-        description: "Enterprise-grade backend solutions.",
-        icon: "/Ajit-Portfolio/images/dotnet.png",
-      },
-      {
-        title: "REST APIs",
-        description: "API development and integration.",
-        icon: "/Ajit-Portfolio/images/api.png",
-      },
-    ],
-    Databases: [
-      {
-        title: "PostgreSQL",
-        description: "Advanced relational database.",
-        icon: "/Ajit-Portfolio/images/postgresql.svg",
-      },
-      {
-        title: "MySQL",
-        description: "Relational database expertise.",
-        icon: "/Ajit-Portfolio/images/mysql-database.png",
-      },
-      {
-        title: "SQLite",
-        description: "Lightweight DB for apps.",
-        icon: "/Ajit-Portfolio/images/sqlite-wtbg.svg",
-      },
-      {
-        title: "Firebase",
-        description: "Realtime cloud DB & auth.",
-        icon: "/Ajit-Portfolio/images/firebase.png",
-      },
-      {
-        title: "MongoDB",
-        description: "NoSQL document database.",
-        icon: "/Ajit-Portfolio/images/mongodb.svg",
-      },
-    ],
-    DevOps: [
-      {
-        title: "Docker",
-        description: "Containerization & deployment.",
-        icon: "/Ajit-Portfolio/images/docker.png",
-      },
-      {
-        title: "Nginx",
-        description: "Web server & reverse proxy setup.",
-        icon: "/Ajit-Portfolio/images/nginx.svg",
-      },
-      {
-        title: "Git / GitHub / Azure Repos",
-        description: "Version control & CI/CD pipelines.",
-        icon: "/Ajit-Portfolio/images/code-versioncontrol.svg",
-      },
-      {
-        title: "Azure DevOps",
-        description: "Cloud-based DevOps practices.",
-        icon: "/Ajit-Portfolio/images/azure-devops.png",
-      },
-    ],
-    Microsoft: [
-      {
-        title: "SharePoint",
-        description: "Basic knowledge of SharePoint functionalities.",
-        icon: "/Ajit-Portfolio/images/sharepoint.svg",
-      },
-      {
-        title: "Power Platform",
-        description: "Build low-code apps with Power Apps & Automate.",
-        icon: "/Ajit-Portfolio/images/power-platform.png",
-      },
-      {
-        title: "Dynamics 365",
-        description: "Customize Dynamics 365 for workflows.",
-        icon: "/Ajit-Portfolio/images/dynamics365.svg",
-      },
-      {
-        title: "Azure (Basic)",
-        description: "Introductory cloud knowledge with Azure.",
-        icon: "/Ajit-Portfolio/images/azure.png",
-      },
-    ],
-    Concepts: [
-      {
-        title: "OOP & DSA",
-        description: "Object-oriented programming & algorithms.",
-        icon: "/Ajit-Portfolio/images/oops.png",
-      },
-      {
-        title: "SDLC & Agile",
-        description: "Software Development Lifecycle & Agile workflow.",
-        icon: "/Ajit-Portfolio/images/scrum.png",
-      },
-      {
-        title: "CI/CD",
-        description: "Continuous Integration & Deployment.",
-        icon: "/Ajit-Portfolio/images/ci-cd.png",
-      },
-      {
-        title: "Secure Data Storage",
-        description: "Authentication & secure storage practices.",
-        icon: "/Ajit-Portfolio/images/security.png",
-      },
-    ],
-  };
-  const [activeTab, setActiveTab] = useState("AI / ML");
-  const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
+  const categoryNames = Object.keys(categories);
+  const [activeTab, setActiveTab] = useState(categoryNames[0]);
+  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        let maxRatio = 0;
-        let mostVisibleCat: string | null = null;
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
-        entries.forEach((entry) => {
-          if (entry.intersectionRatio > maxRatio) {
-            maxRatio = entry.intersectionRatio;
-            mostVisibleCat = entry.target.getAttribute("data-category");
-          }
-        });
-
-        if (mostVisibleCat) {
-          setActiveTab(mostVisibleCat);
-        }
+        const category = visible?.target.getAttribute("data-category");
+        if (category) setActiveTab(category);
       },
       {
-        threshold: Array.from({ length: 11 }, (_, i) => i / 10), // 0.0 to 1.0
-        rootMargin: "-10% 0px -40% 0px",
+        threshold: [0.2, 0.4, 0.6, 0.8],
+        rootMargin: "-12% 0px -45% 0px",
       }
     );
 
-    Object.values(sectionRefs.current).forEach((sec) => {
-      if (sec) observer.observe(sec);
+    Object.values(sectionRefs.current).forEach((section) => {
+      if (section) observer.observe(section);
     });
 
     return () => observer.disconnect();
@@ -288,80 +271,59 @@ const Services: React.FC = () => {
 
   return (
     <section className="services" id="services">
+      <p className="section-kicker">Skills</p>
       <h2 className="heading">
-        Skills &amp; <span className="no-cursor-effect">Services</span>
+        Complete stack for <span>full-stack, Microsoft, cloud, AI,</span> and
+        automation work.
       </h2>
 
-      <div className="services-layout" style={{ display: "flex" }}>
-        {/* Left sticky vertical tabs */}
-        <div
-          className="services-tabs-vertical"
-          style={{
-            position: "sticky",
-            top: "100px", // adjust so it doesn’t overlap navbar
-            alignSelf: "flex-start",
-            height: "fit-content",
-          }}
-        >
-          {Object.keys(categories).map((cat) => (
+      <div className="services-layout">
+        <div className="services-tabs-vertical" aria-label="Skill categories">
+          {categoryNames.map((category) => (
             <button
-              key={cat}
-              className={`tab-btn ${activeTab === cat ? "active" : ""}`}
+              key={category}
+              className={`tab-btn ${activeTab === category ? "active" : ""}`}
               onClick={() =>
-                sectionRefs.current[cat]?.scrollIntoView({
+                sectionRefs.current[category]?.scrollIntoView({
                   behavior: "smooth",
                   block: "start",
                 })
               }
+              type="button"
             >
-              {cat}
+              {category}
             </button>
           ))}
         </div>
 
-        {/* Right side scrollable sections */}
-        <div
-          className="service-sections"
-          style={{
-            marginLeft: "2rem",
-            flex: 1,
-            overflow: "visible",
-          }}
-        >
-          {Object.keys(categories).map((cat) => (
+        <div className="service-sections">
+          {categoryNames.map((category) => (
             <div
-              key={cat}
-              data-category={cat}
-              ref={(el) => {
-                sectionRefs.current[cat] = el;
+              key={category}
+              className="skill-category"
+              data-category={category}
+              ref={(element) => {
+                sectionRefs.current[category] = element;
               }}
-              style={{ marginBottom: "6rem" }}
             >
-              <h3
-                style={{
-                  fontSize: "2rem",
-                  marginBottom: "1.5rem",
-                  borderBottom: "2px solid #ddd",
-                  paddingBottom: "0.5rem",
-                }}
-              >
-                {cat}
-              </h3>
+              <h3>{category}</h3>
               <div className="service-container">
-                {categories[cat].map((service, index) => (
-                  <div key={index} className="services-box no-cursor-effect">
-                    {service.icon ? (
-                      <img
-                        src={service.icon}
-                        alt={service.alt || service.title}
-                        style={{ height: "5rem", width: "5rem" }}
-                      />
-                    ) : (
-                      <i className={`bx ${service.boxicon}`}></i>
-                    )}
-                    <h3>{service.title}</h3>
+                {categories[category].map((service) => (
+                  <article key={service.title} className="services-box">
+                    <div className="skill-icon">
+                      {service.icon ? (
+                        <img
+                          src={assetPath(service.icon)}
+                          alt=""
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <i className={`bx ${service.boxicon}`}></i>
+                      )}
+                    </div>
+                    <h4>{service.title}</h4>
                     <p>{service.description}</p>
-                  </div>
+                  </article>
                 ))}
               </div>
             </div>

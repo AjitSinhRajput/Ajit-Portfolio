@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import { Switch } from "antd";
 import { SunFilled, MoonFilled } from "@ant-design/icons";
 
+const navItems = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "experience", label: "Experience" },
+  { id: "services", label: "Skills" },
+  { id: "portfolio", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
+
 const Header: React.FC = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isSticky, setIsSticky] = useState(false);
@@ -9,29 +18,58 @@ const Header: React.FC = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll("section[id]");
-      const scrollY = window.scrollY;
+    let ticking = false;
 
-      sections.forEach((section) => {
-        const sectionTop = (section as HTMLElement)?.offsetTop - 150;
-        const sectionHeight = (section as HTMLElement)?.offsetHeight;
-        const sectionId = section?.getAttribute("id");
+    const updateHeaderState = () => {
+      const nextSticky = window.scrollY > 80;
+      setIsSticky((current) => (current === nextSticky ? current : nextSticky));
 
-        if (
-          scrollY >= sectionTop &&
-          scrollY < sectionTop + sectionHeight &&
-          sectionId
-        ) {
-          setActiveSection(sectionId);
-        }
-      });
+      const sections = navItems
+        .map((item) => document.getElementById(item.id))
+        .filter((section): section is HTMLElement => Boolean(section));
+      const activationLine = window.innerHeight * 0.38;
 
-      setIsSticky(scrollY > 100);
+      const active =
+        sections.find((section) => {
+          const rect = section.getBoundingClientRect();
+          return rect.top <= activationLine && rect.bottom > activationLine;
+        }) ||
+        sections.reduce<HTMLElement | null>((closest, section) => {
+          const rect = section.getBoundingClientRect();
+          if (!closest) return section;
+
+          const closestDistance = Math.abs(
+            closest.getBoundingClientRect().top - activationLine
+          );
+          const sectionDistance = Math.abs(rect.top - activationLine);
+
+          return sectionDistance < closestDistance ? section : closest;
+        }, null);
+
+      const sectionId = active?.id;
+      if (sectionId) {
+        setActiveSection((current) =>
+          current === sectionId ? current : sectionId
+        );
+      }
+
+      ticking = false;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const scheduleUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateHeaderState);
+    };
+
+    updateHeaderState();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
   useEffect(() => {
@@ -46,53 +84,37 @@ const Header: React.FC = () => {
 
   return (
     <header className={`header ${isSticky ? "sticky" : ""}`}>
-      <a href="#" className="logo no-cursor-effect">
-        Portfolio
+      <a href="#home" className="logo" onClick={closeMenu}>
+        <span className="logo-mark">&lt;</span>Ajit.dev
+        <span className="logo-mark">/&gt;</span>
       </a>
       <div className="header-right">
-        {/* Menu icon */}
-        <i
-          className={`bx bx-menu no-cursor-effect ${menuOpen ? "bx-x" : ""}`}
+        <button
+          type="button"
+          className="menu-toggle"
           id="menu-icon"
           onClick={toggleMenu}
-        ></i>
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+        >
+          <i className={`bx ${menuOpen ? "bx-x" : "bx-menu"}`}></i>
+        </button>
       </div>
-      <nav className={`navbar no-cursor-effect ${menuOpen ? "active" : ""}`}>
-        <a
-          href="#home"
-          className={activeSection === "home" ? "active" : ""}
-          onClick={closeMenu}
-        >
-          Home
-        </a>
-        <a
-          href="#about"
-          className={activeSection === "about" ? "active" : ""}
-          onClick={closeMenu}
-        >
-          About
-        </a>
-        <a
-          href="#services"
-          className={activeSection === "services" ? "active" : ""}
-          onClick={closeMenu}
-        >
-          Services
-        </a>
-        <a
-          href="#portfolio"
-          className={activeSection === "portfolio" ? "active" : ""}
-          onClick={closeMenu}
-        >
-          Portfolio
-        </a>
-        <a
-          href="#contact"
-          className={activeSection === "contact" ? "active" : ""}
-          onClick={closeMenu}
-        >
-          Contact
-        </a>
+      <nav
+        className={`navbar ${menuOpen ? "active" : ""}`}
+        id="primary-navigation"
+      >
+        {navItems.map((item) => (
+          <a
+            href={`#${item.id}`}
+            className={activeSection === item.id ? "active" : ""}
+            onClick={closeMenu}
+            key={item.id}
+          >
+            {item.label}
+          </a>
+        ))}
         <div className="theme-switch-container">
           <Switch
             checked={theme === "light"}

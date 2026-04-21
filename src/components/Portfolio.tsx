@@ -1,64 +1,66 @@
 function Portfolio() {
   const projects = [
     {
-      title: "AI/ML Exploration",
-      technologies: "LLaMA, Vision Models, PrivateGPT, Mistral, LLAVA",
+      title: "Louna AI Healthcare SaaS",
+      type: "Professional",
+      technologies: "React, TypeScript, FastAPI, PostgreSQL, AWS, Stripe",
       description:
-        "Explored AI/ML concepts including LLaMA, Vision Models, Mistral, LLAVA, and implemented PrivateGPT for privacy-focused local AI setups.",
+        "Healthcare SaaS workflows with RBAC, Google/Microsoft OAuth, subscription billing, analytics, AWS Bedrock LLM integration, and AWS Transcribe audio processing.",
     },
     {
-      title: "Dynamics 365 CRM",
-      technologies: "Dynamics 365, Power Automate, Dataverse",
+      title: "Enterprise CRM Platform",
+      type: "Professional",
+      technologies: "React, FastAPI, PostgreSQL, Dynamics 365, Power Automate",
       description:
-        "Configured Dynamics 365 CRM solutions, implemented customizations, and automated workflows with Power Automate.",
+        "Role-based CRM serving 500+ users with secure access controls, customized Leads and Opportunities modules, approval workflows, and operational reporting.",
     },
     {
-      title: "SharePoint Projects",
-      technologies: "SharePoint, Power Apps, Dataverse",
+      title: "AI Expense Approval System",
+      type: "Professional",
+      technologies: "Power Apps, SharePoint, Power Automate, AI Builder OCR",
       description:
-        "Developed SharePoint solutions, including integrating SharePoint lists with Power Apps and Dataverse.",
+        "Low-code expense tracker using OCR extraction, structured SharePoint lists, permission models, and manager approval automation to reduce reporting effort.",
     },
     {
-      title: "Power Platform Solutions",
-      technologies: "Power Apps, Power Automate, Dataverse",
+      title: "AI & Image Processing Platform",
+      type: "Product",
+      technologies: "Next.js, FastAPI, Hugging Face, Mistral, LLaMA, LLaVA",
       description:
-        "Created Canvas Apps, approval workflows, and automated processes using Power Automate and Dataverse.",
+        "Full-stack platform for image enhancement, OCR, background removal, and model-backed processing with credit-based workflows and API integrations.",
     },
     {
-      title: "EmageAI - Image Processing App",
-      technologies: "Next.js, Python, Razorpay, PostgreSQL, Bootstrap CSS",
+      title: "Face Recognition Attendance",
+      type: "Academic",
+      technologies: "Python, Flask, OpenCV, JavaScript, CSV Reporting",
       description:
-        "Next.js-based app featuring image enhancement, background removal, OCR text extraction, and denoising. Implemented a credit system and Razorpay integration using Next.js SSR APIs.",
+        "Webcam-based attendance system with face recognition, secure data handling, and automated attendance reports for administrators.",
     },
     {
-      title: "CRM Web App",
-      technologies: "React.js, FastAPI, PostgreSQL, Vite.js (TypeScript)",
+      title: "Portfolio Website",
+      type: "Personal",
+      technologies: "React, TypeScript, Vite, Responsive UI",
       description:
-        "Built a CRM web app with React.js, FastAPI, PostgreSQL, and Vite.js (TypeScript).",
-    },
-    {
-      title: "Face Recognition Attendance System",
-      technologies: "Python Flask, OpenCV, HTML, CSS, JavaScript",
-      description:
-        "Flask app with webcam integration for real-time face recognition. Generated CSV reports for attendance tracking.",
+        "Personal engineering portfolio designed to present full-stack, Microsoft ecosystem, cloud, AI, and automation experience through a responsive interface.",
     },
   ];
 
   return (
     <section className="ajit-portfolio" id="portfolio">
-      <h2 className="ajit-portfolio-heading ">
-        My <span className="no-cursor-effect">Projects</span>
+      <p className="section-kicker">Projects</p>
+      <h2 className="ajit-portfolio-heading">
+        Selected work with <span>business impact.</span>
       </h2>
-      <div className="ajit-portfolio-container ">
+      <div className="ajit-portfolio-container">
         {projects.map((project, index) => (
           <div
             key={index}
-            className="ajit-portfolio-box services-box no-cursor-effect"
+            className="ajit-portfolio-box services-box"
           >
             <div className="ajit-portfolio-layer">
+              <span className="project-type">{project.type}</span>
               <h4 className="ajit-portfolio-title">{project.title}</h4>
               <p className="ajit-portfolio-technologies">
-                <strong>Technologies:</strong> {project.technologies}
+                {project.technologies}
               </p>
               <p className="ajit-portfolio-description">
                 {project.description}

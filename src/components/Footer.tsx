@@ -19,11 +19,14 @@ function Footer() {
 
   return (
     <footer className="footer">
-      <div className="footer-text no-cursor-effect">
-        <p>Copyright &copy; 2025 by Ajit | All Rights Reserved.</p>
+      <div className="footer-text">
+        <p>
+          Copyright &copy; {new Date().getFullYear()} Ajit Sinh Rajput. All
+          rights reserved.
+        </p>
       </div>
 
-      <div className="footer-iconTop no-cursor-effect">
+      <div className="footer-iconTop">
         <button
           onClick={scrollToTop}
           style={{
