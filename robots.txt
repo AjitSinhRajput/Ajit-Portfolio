@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://AjitSinhRajput.github.io/Ajit-Portfolio/sitemap.xml
